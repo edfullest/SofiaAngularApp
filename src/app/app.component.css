@@ -12,6 +12,25 @@
   outline: none;
 }
 
+:host /deep/ .btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+:host /deep/ .btn-primary:hover,
+:host /deep/ .btn-primary:active,
+:host /deep/ .btn-primary.active,
+:host /deep/ .btn-primary:active:focus,
+:host /deep/ .btn-primary:not([disabled]):not(.disabled).active, 
+:host /deep/ .btn-primary:not([disabled]):not(.disabled):active, 
+:host /deep/ .show>.btn-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #2079b4;
+  border-color: #2079b4;
+  box-shadow: none;
+}
+
 :host /deep/ .btn-outline-primary {
   color: #3498db;
   border-color: #3498db;

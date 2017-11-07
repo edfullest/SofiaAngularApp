@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { Angular2TokenService } from 'angular2-token';
 import {Router, RouterModule} from '@angular/router';
+import { User, UserDataService } from '../services/user-data.service';
+import { RequestMethod } from '@angular/http';
+
 import * as $ from 'jquery';
 
 const now = new Date();
@@ -30,9 +33,15 @@ export class SofiaTeacherComponent implements OnInit{
 
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
-
+  modalRef: NgbModalRef;
   ngOnInit(){
-    this.getProfileFromApi()
+    var user : User = this.userService.getCurrentUser()
+    if (this._tokenService.userSignedIn() == false){
+      this.router.navigateByUrl('/home');
+    }
+    else{
+      this.name = user.firstName
+    }
   }
   onDateChange(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
@@ -50,22 +59,21 @@ export class SofiaTeacherComponent implements OnInit{
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
 
-    
   constructor(private modalService: NgbModal, public calendar: NgbCalendar, 
-    private _tokenService: Angular2TokenService, private router: Router) {
+    private _tokenService: Angular2TokenService, private router: Router,
+    private userService : UserDataService) {
     this.fromDate = calendar.getToday();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 100);
 
   }
 
   open(content) {
-    
-    this.modalService.open(content).result.then((result) => {
+    this.modalRef = this.modalService.open(content)
+    this.modalRef.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-    
+    });    
   }
 
   private getDismissReason(reason: any): string {
@@ -84,6 +92,8 @@ export class SofiaTeacherComponent implements OnInit{
       error =>    console.log(error)
     );
     this.router.navigateByUrl('/home');
+    this.userService.deleteCurrentUserData()
+    console.log(this.userService.getCurrentUser())
   }
 
   loadProfile(){
@@ -94,22 +104,30 @@ export class SofiaTeacherComponent implements OnInit{
       this.router.navigate(['teacher/dashboard/courses']);
   }
 
-  getProfileFromApi(){
-    this._tokenService.get('people/profile').subscribe(
-            res => {
-              var data = res.json()
-              this.name = data.data.name
-              console.log(res.json())
-
-            },
-            error => console.log(error)
-        );
-  }
-
   checkLogin(){
     if (this._tokenService.userSignedIn() == false){
       this.router.navigateByUrl('/home');
     }
+  }
+
+  createCourse(){
+    this.modalRef.close()
+    var data = {
+      "start_date" : this.fromDate.day+"/"+this.fromDate.month+"/"+this.fromDate.year,
+      "name" : this.courseName,
+      "end_date" : this.toDate.day+"/"+this.toDate.month+"/"+this.toDate.year
+    }
+    this._tokenService.request({
+      method: "POST",
+      url:    'http://localhost:3000/courses',
+      body:   data
+    });
+    // this._tokenService.request({
+    //   method: "GET",
+    //   url:    'http://localhost:3000/teachers/courses',
+    //   body:   data
+    // });
+    
   }
 
 }

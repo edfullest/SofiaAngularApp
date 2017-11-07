@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2TokenService } from 'angular2-token';
+import { User, UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,14 +13,18 @@ export class ProfileComponent implements OnInit {
    lastName : string;
    email : string;
 
-   constructor(private _tokenService: Angular2TokenService) {
+   constructor(private _tokenService: Angular2TokenService, private userService : UserDataService) {
      this._tokenService.init({
             apiBase: 'http://localhost:3000'
             });
     }
 
   ngOnInit() {
-    this.loadProfile()
+    // this.loadProfile()
+    var user : User = this.userService.getCurrentUser()
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.email = user.email
   }
 
    loadProfile(){

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Angular2TokenService } from 'angular2-token';
 import * as $ from 'jquery';
 import {Router} from '@angular/router';
+import { User, UserDataService } from '../../services/user-data.service';
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    name = {
-        first : "works"
-    }
     password : string;
-    constructor(private _tokenService: Angular2TokenService, private router: Router) {
+    constructor(private _tokenService: Angular2TokenService, private router: Router, 
+               private userService : UserDataService ) {
         this._tokenService.init({
             apiBase: 'http://localhost:3000'
             });
@@ -21,20 +21,18 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         if (this._tokenService.userSignedIn() == true){
-            this.router.navigateByUrl('/teacher/dashboard');
+            this.router.navigateByUrl('/teacher/dashboard/courses');
         }
     }
 
     activateButton(){
-
         $('#registerButtonStudent').removeClass('active');
         $('#registerButtonTeacher').removeClass('active');
-        if ($('#loginButton').attr('class') == 'btn btn-outline-primary active'){
-            $('#loginButton').removeClass('active');
-        }
-        else{
-            $('#loginButton').addClass('active');
-        }  
+        $('#loginButton').addClass('active'); 
+    }
+
+    deactivateButton(){
+        $('#loginButton').removeClass('active'); 
     }
 
     sendLoginData(){
@@ -47,7 +45,10 @@ export class LoginComponent implements OnInit {
         .subscribe(
             res =>  {
                 var data = res.json()
-                console.log(data)
+                this.userService.setCurrentUser(data.data.id,data.data.name,data.data.last_name,
+                data.type,data.data.email)
+                console.log(this.userService.getCurrentUser())
+
                 if (data.type == 'Student'){
 
                 }

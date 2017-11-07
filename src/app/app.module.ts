@@ -18,6 +18,7 @@ import { SofiaLandingPageComponent } from './sofia-landing-page/sofia-landing-pa
 import { AppRoutingModule }        from './app-routing.module';
 import { AuthGuard } from './auth-guard.service';
 import { PersonTypeSelectionComponent } from './sofia-landing-page/person-type-selection/person-type-selection.component';
+import { User, UserDataService } from './services/user-data.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { PersonTypeSelectionComponent } from './sofia-landing-page/person-type-s
     FormsModule,
     AppRoutingModule
   ],
-  providers: [Angular2TokenService, AuthGuard],
+  providers: [Angular2TokenService, AuthGuard, UserDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
