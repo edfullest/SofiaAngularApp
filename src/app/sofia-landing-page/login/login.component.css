@@ -1,0 +1,42 @@
+/*.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+  font-size: 1.2em;
+}*/
+
+/* You can add global styles to this file, and also import other style files */
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary:active:focus,
+.btn-outline-primary:not([disabled]):not(.disabled).active, 
+.btn-outline-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #3498db;
+  border-color: #3498db;
+  box-shadow: none;
+}
+
+:host /deep/ .popover-header {
+    color: #ffffff;
+    background-color: #3498db;
+}
+
+.form-control:focus {
+  border-color: #3498db;  
+  box-shadow: none; 
+  -webkit-box-shadow: none;
+}
+

@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/teacher/dashboard/courses']" >Dashboard de {{name}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+          <button class="btn btn-outline-primary mr-sm-2" (click)="loadCourses()">Ver cursos</button>
+      </li>
+      <li class="nav-item">
+          <button class="btn btn-outline-primary" (click)="open(content)">Crear curso</button>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-secondary mr-sm-2" (click)="loadProfile()">Mi Perfil</button>
+      <button id = "Logout" (click) = "logout()" type="button" class="btn btn-outline-dark">
+              Salir
+       </button>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+<router-outlet></router-outlet>
+<hr>
+
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Crear Curso</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" class = "whiteCross">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class = "form">
+            <div class="col-md-15">
+                <div class="form-group">
+                  <label for="courseName">Nombre del curso</label>
+                  <input id = "courseName" type="text" class="form-control" [(ngModel)]="courseName" placeholder="Ej. Inglés para niños" [ngModelOptions]="{standalone: true}" required>
+                </div> 
+              </div>
+                <hr>
+              <div class="form-group">
+                  <label for="datepickerRange">Duración del curso</label>
+                  <ngb-datepicker id = "datepickerRange" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="datesTemplate">
+                  </ngb-datepicker>
+              </div>
+              
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Crear curso</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+
+    </div>
+</ng-template>
+
+<ng-template #datesTemplate let-date="date" let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
+

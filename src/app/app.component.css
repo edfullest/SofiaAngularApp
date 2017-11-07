@@ -1,0 +1,52 @@
+:host /deep/ .popover {
+    width: 30%;
+}
+
+:host /deep/ #send,
+:host /deep/ #send:hover {
+  font-size: 1.2em;
+}
+
+
+:focus{
+  outline: none;
+}
+
+:host /deep/ .btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+:host /deep/ .btn-outline-primary:hover,
+:host /deep/ .btn-outline-primary:active,
+:host /deep/ .btn-outline-primary.active,
+:host /deep/ .btn-outline-primary:active:focus,
+:host /deep/ .btn-outline-primary:not([disabled]):not(.disabled).active, 
+:host /deep/ .btn-outline-primary:not([disabled]):not(.disabled):active, 
+:host /deep/ .show>.btn-outline-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #3498db;
+  border-color: #3498db;
+  box-shadow: none;
+}
+
+:host /deep/ .btn-outline-secondary {
+  color: #16a085;
+  border-color: #16a085;
+  box-shadow: none;
+}
+
+:host /deep/ .btn-outline-secondary:hover,
+:host /deep/ .btn-outline-secondary:active,
+:host /deep/ .btn-outline-secondary.active,
+:host /deep/ .btn-outline-secondary:active:focus,
+:host /deep/ .btn-outline-secondary:not([disabled]):not(.disabled).active, 
+:host /deep/ .btn-outline-secondary:not([disabled]):not(.disabled):active, 
+:host /deep/ .show>.btn-outline-secondary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #16a085;
+  border-color: #16a085;
+  box-shadow: none;
+}

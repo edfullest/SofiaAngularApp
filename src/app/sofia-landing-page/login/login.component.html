@@ -1,0 +1,31 @@
+<ng-template #popContent>
+         <form ng-submit="formSubmitLogin()" class="form">
+                  <div class="col-md-20">
+                              <div class="form-group">
+                                <input id = "loginEmail" type="text" class="form-control" ng-model="username" placeholder="Correo" required=""/>
+                              </div> 
+
+                              <div class="form-group">
+                                <input id = "loginPassword" type="password" class="form-control" ng-model="password" placeholder="Contraseña" required=""/>
+                              </div>
+                    </div>
+          </form>
+          <div class="container text-center">
+            <div class="span2">
+                <p>
+                    <button id = "send" (click) = "sendLoginData()" type="button" placement="bottom" class="btn btn-outline-primary btn-block">
+                        Entrar
+                    </button>
+                </p>
+            </div>
+        </div>
+
+          
+</ng-template>
+
+<button id = "loginButton" type="button" placement="bottom" class="btn btn-outline-primary" [ngbPopover]="popContent" popoverTitle="Login" (click)="activateButton()" on-focusout="activateButton()" closePopoverOnOutsideClick>
+    Login
+</button>
+
+
+

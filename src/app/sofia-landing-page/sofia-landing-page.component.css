@@ -1,0 +1,8 @@
+:host /deep/ .popover {
+    width: 30%;
+}
+
+:host /deep/ #send,
+:host /deep/ #send:hover {
+  font-size: 1.2em;
+}

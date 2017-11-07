@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+/*.btn-outline-primary {
+  color: #16a085;
+  border-color: #16a085;
+  font-size: 1.0em;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary:active:focus,
+.btn-outline-primary:not([disabled]):not(.disabled).active, 
+.btn-outline-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-primary.dropdown-toggle {
+  color: #ffffff;
+  background-color: #16a085;
+  border-color: #16a085;
+  font-size: 1.0em;
+  box-shadow: none;
+}*/
+
+:host /deep/ .popover-header {
+    color: #ffffff;
+    background-color: #16a085;
+}
+
+.form-control:focus {
+  border-color: #16a085;  
+  box-shadow: none; 
+  -webkit-box-shadow: none;
+}

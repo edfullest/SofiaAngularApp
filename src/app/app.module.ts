@@ -1,16 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
+import { Angular2TokenService } from 'angular2-token';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ClosePopoverOnOutsideClickDirective } from './close-popover.directive';
+import { FormsModule } from '@angular/forms';
+
+import { Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './sofia-landing-page/login/login.component';
+import { RegisterComponent } from './sofia-landing-page/register/register.component';
+import { SofiaLandingPageComponent } from './sofia-landing-page/sofia-landing-page.component'
+
+import { AppRoutingModule }        from './app-routing.module';
+import { AuthGuard } from './auth-guard.service';
+import { PersonTypeSelectionComponent } from './sofia-landing-page/person-type-selection/person-type-selection.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClosePopoverOnOutsideClickDirective,
+    LoginComponent,
+    RegisterComponent,
+    SofiaLandingPageComponent,
+    PersonTypeSelectionComponent
   ],
   imports: [
-    BrowserModule
+    NgbModule.forRoot(),
+    BrowserModule,
+    HttpModule,
+    FormsModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [Angular2TokenService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

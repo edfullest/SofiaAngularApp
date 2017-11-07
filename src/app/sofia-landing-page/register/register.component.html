@@ -1,0 +1,43 @@
+<ng-template #popContent>
+    {{name}}
+         <form ng-submit="formSubmitStudent()" class="form">
+            <div class="col-md-15">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="firstName" placeholder="Nombre" [ngModelOptions]="{standalone: true}" required>
+                </div> 
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="lastName" placeholder="Apellido" [ngModelOptions]="{standalone: true}" required>
+                </div> 
+                <div class="form-group">
+                  <input class="form-control" [(ngModel)]="email" placeholder="Correo" [ngModelOptions]="{standalone: true}" required>
+                </div> 
+                <div class="form-group">
+                  <input type="password" class="form-control" [(ngModel)]="password" placeholder="Contraseña" [ngModelOptions]="{standalone: true}" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" [(ngModel)]="passwordRepeat" placeholder="Repite la contraseña" [ngModelOptions]="{standalone: true}" required>
+                </div>                
+              </div>
+          </form>
+          <div class="container text-center">
+            <div class="span3">
+                <p>
+                    <button id = "send" (click)="sendRequest()" type="button" placement="bottom" class="btn btn-outline-secondary btn-block">
+                        Mandar
+                    </button>
+                </p>
+            </div>
+          </div>
+          
+
+
+</ng-template>
+
+
+<button id="registerButtonStudent" type="button" placement="bottom" class="btn btn-outline-secondary" (click)="activateStudentButton()" on-focusout="activateStudentButton()"  [ngbPopover]="popContent" popoverTitle="Registro Estudiante" closePopoverOnOutsideClick>
+    Regístrate Estudiante
+</button>
+
+<button id="registerButtonTeacher" type="button" placement="bottom"  class="btn btn-outline-secondary" (click)="activateTeacherButton()" on-focusout="activateTeacherButton()"  [ngbPopover]="popContent" popoverTitle="Registro Maestro" closePopoverOnOutsideClick>
+    Regístrate Maestro
+</button>
