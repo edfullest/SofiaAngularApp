@@ -30,7 +30,6 @@ export class CoursesComponent implements OnInit {
                     row.push(data[j])
                 }
                 this.coursesRows.push(row)
-                // do whatever
             }
             
         },
