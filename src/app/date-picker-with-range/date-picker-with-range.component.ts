@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import {NgbModal, NgbModalRef ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { Angular2TokenService } from 'angular2-token';
@@ -20,28 +20,42 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
   !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
     ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 
-@Component({
-  selector: 'app-sofia-teacher',
-  templateUrl: './sofia-teacher.component.html',
-  styleUrls: ['./sofia-teacher.component.css']
-})
-export class SofiaTeacherComponent implements OnInit{
-  name : string;
-  courseName: string;
-  closeResult: string;
-  hoveredDate: NgbDateStruct;
 
+@Injectable()
+export class DatePickerWithRangeService {
+  private fromDate: NgbDateStruct;
+  private toDate: NgbDateStruct;
+
+
+  getFromDate() {
+    return this.fromDate
+  }
+
+  getToDate() {
+    return this.toDate
+  }
+
+  setFromDate(date : NgbDateStruct){
+    this.fromDate = date
+  }
+  setToDate(date : NgbDateStruct){
+    this.toDate = date
+  }
+}
+@Component({
+  selector: 'date-picker-with-range',
+  templateUrl: './date-picker-with-range.component.html',
+  styleUrls: ['./date-picker-with-range.component.css']
+})
+
+export class DatePickerWithRangeComponent implements OnInit{
+  hoveredDate: NgbDateStruct;
+  closeResult: string;
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   modalRef: NgbModalRef;
   ngOnInit(){
-    var user : User = this.userService.getCurrentUser()
-    if (this._tokenService.userSignedIn() == false){
-      this.router.navigateByUrl('/home');
-    }
-    else{
-      this.name = user.firstName
-    }
+
   }
   onDateChange(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
@@ -52,6 +66,9 @@ export class SofiaTeacherComponent implements OnInit{
       this.toDate = null;
       this.fromDate = date;
     }
+    this.datePickerService.setFromDate(this.fromDate)
+    this.datePickerService.setToDate(this.toDate)
+    
   }
 
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
@@ -59,10 +76,9 @@ export class SofiaTeacherComponent implements OnInit{
   isFrom = date => equals(date, this.fromDate);
   isTo = date => equals(date, this.toDate);
 
-  constructor(private modalService: NgbModal, public calendar: NgbCalendar, 
-    private _tokenService: Angular2TokenService, private router: Router,
-    private userService : UserDataService) {
+  constructor(private modalService: NgbModal, public calendar: NgbCalendar, private datePickerService : DatePickerWithRangeService) {
     this.fromDate = calendar.getToday();
+    // this.datePickerService.setFromDate(this.fromDate)
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 100);
 
   }
@@ -84,45 +100,6 @@ export class SofiaTeacherComponent implements OnInit{
     } else {
       return  `with: ${reason}`;
     }
-  }
-
-  logout(){
-    this._tokenService.signOut().subscribe(
-      res =>      console.log(res),
-      error =>    console.log(error)
-    );
-    this.router.navigateByUrl('/home');
-    this.userService.deleteCurrentUserData()
-    console.log(this.userService.getCurrentUser())
-  }
-
-  loadProfile(){
-      this.router.navigate(['teacher/dashboard/profile']);
-  }
-
-  loadCourses(){
-      this.router.navigate(['']);
-  }
-
-  checkLogin(){
-    if (this._tokenService.userSignedIn() == false){
-      this.router.navigateByUrl('/home');
-    }
-  }
-
-  createCourse(){
-    this.modalRef.close()
-    var data = {
-      "start_date" : this.fromDate.day+"/"+this.fromDate.month+"/"+this.fromDate.year,
-      "name" : this.courseName,
-      "end_date" : this.toDate.day+"/"+this.toDate.month+"/"+this.toDate.year
-    }
-    this._tokenService.request({
-      method: "POST",
-      url:    'http://localhost:3000/courses',
-      body:   data
-    });
-    
   }
 
 }

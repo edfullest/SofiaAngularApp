@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AssignmentsComponent } from './courses/assignments/assignments.component';
+import { DatePickerWithRangeComponent } from '../date-picker-with-range/date-picker-with-range.component';
 
 const routes: Routes = [
   { path: '', 

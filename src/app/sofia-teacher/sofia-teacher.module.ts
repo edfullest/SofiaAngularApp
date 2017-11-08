@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AssignmentsComponent } from './courses/assignments/assignments.component';
+import { DatePickerWithRangeComponent } from '../date-picker-with-range/date-picker-with-range.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { AssignmentsComponent } from './courses/assignments/assignments.componen
     NgbModule.forRoot(),
     SofiaTeacherRoutingModule
   ],
-  declarations: [SofiaTeacherComponent, ProfileComponent, CoursesComponent, AssignmentsComponent]
+  declarations: [DatePickerWithRangeComponent,SofiaTeacherComponent, ProfileComponent, CoursesComponent, AssignmentsComponent]
 })
 export class SofiaTeacherModule { 
 

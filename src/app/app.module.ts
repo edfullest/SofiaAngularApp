@@ -19,6 +19,7 @@ import { AppRoutingModule }        from './app-routing.module';
 import { AuthGuard } from './auth-guard.service';
 import { PersonTypeSelectionComponent } from './sofia-landing-page/person-type-selection/person-type-selection.component';
 import { User, UserDataService } from './services/user-data.service';
+import { DatePickerWithRangeService,DatePickerWithRangeComponent } from './date-picker-with-range/date-picker-with-range.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { User, UserDataService } from './services/user-data.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [Angular2TokenService, AuthGuard, UserDataService],
+  providers: [Angular2TokenService, AuthGuard, UserDataService, DatePickerWithRangeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
