@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
           this.type,this.email)
           console.log(this.userService.getCurrentUser())
           if (this.type == 'Student'){
-            
+            this.router.navigateByUrl('/student/dashboard/courses');
           }
           else{
             this.router.navigateByUrl('/teacher/dashboard/courses');

@@ -1,0 +1,38 @@
+<h2>
+  {{title}}
+</h2>
+
+
+
+<div class = "row" *ngFor="let courseRow of coursesRows;">
+    <div id = "course{{course.id}}" class="col-lg-3" *ngFor="let course of courseRow;" >
+        <div class="card">
+          <div id = "card-block{{course.id}}" class="card-block visible">
+            <h4 class="card-title">{{course.name}}</h4>
+            
+            <p>Inicia: {{course.start_date}}</p> 
+            <p>Se acaba el: {{course.end_date}}</p> 
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Ver</a></li>
+              <li class="list-group-item"><button (click)="unRegister(course.id)" class="btn btn-danger btn-block">Salir del curso</button></li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">Curso</h4>
+        <p>Inicia:</p>
+        <p>Se acaba el:</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Ver</a></li>
+        <li class="list-group-item"><a href="#" class="btn btn-secondary btn-block">Editar</a></li>
+        <li class="list-group-item"><a href="#" class="btn btn-danger btn-block">Borrar</a></li>
+      </ul>
+    </div>
+</div>

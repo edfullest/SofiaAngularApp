@@ -10,6 +10,11 @@ const appRoutes: Routes = [
     loadChildren: 'app/sofia-teacher/sofia-teacher.module#SofiaTeacherModule',
     canLoad: [AuthGuard]
   },
+  {
+    path: 'student/dashboard',
+    loadChildren:'app/sofia-student/sofia-student.module#SofiaStudentModule',
+    canLoad: [AuthGuard]
+  },
   // { path: 'teacher/dashboard', component: SofiaTeacherComponent },
   { path: '', component: SofiaLandingPageComponent },
   { path: 'home', component: SofiaLandingPageComponent }

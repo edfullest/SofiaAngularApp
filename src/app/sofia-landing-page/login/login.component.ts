@@ -21,7 +21,12 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         if (this._tokenService.userSignedIn() == true){
-            this.router.navigateByUrl('/teacher/dashboard/courses');
+            var currentUser : User = this.userService.getCurrentUser()
+            if(currentUser.type == 'Student'){
+                this.router.navigateByUrl('/student/dashboard/courses');
+            }else{
+                this.router.navigateByUrl('/teacher/dashboard/courses');
+            }
         }
     }
 
@@ -50,7 +55,7 @@ export class LoginComponent implements OnInit {
                 console.log(this.userService.getCurrentUser())
 
                 if (data.type == 'Student'){
-
+                    this.router.navigateByUrl('/student/dashboard/courses');
                 }
                 else if (data.type == 'Teacher'){
                     this.router.navigateByUrl('/teacher/dashboard/courses');

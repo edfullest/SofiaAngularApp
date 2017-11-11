@@ -20,6 +20,9 @@ import { AuthGuard } from './auth-guard.service';
 import { PersonTypeSelectionComponent } from './sofia-landing-page/person-type-selection/person-type-selection.component';
 import { User, UserDataService } from './services/user-data.service';
 import { DatePickerWithRangeService,DatePickerWithRangeComponent } from './date-picker-with-range/date-picker-with-range.component';
+// import { SofiaStudentComponent } from './sofia-student/sofia-student.component';
+// import { ProfileComponent } from './sofia-student/profile/profile.component';
+// import { CoursesComponent } from './sofia-student/courses/courses.component';
 
 @NgModule({
   declarations: [
