@@ -8,13 +8,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AssignmentsComponent } from './courses/assignments/assignments.component';
 import { DatePickerWithRangeComponent } from '../date-picker-with-range/date-picker-with-range.component';
+import { CoursesModule } from '../shared-components/courses.module';
+import { CourseDetailsComponent } from '../shared-components/course-details/course-details.component';
 
 const routes: Routes = [
   { path: '', 
     component: SofiaTeacherComponent, 
     children: [
       { path: 'courses', component: CoursesComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'course/:id', component: CourseDetailsComponent }
     ]}
 ];
 

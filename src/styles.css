@@ -1,1 +1,117 @@
-/* You can add global styles to this file, and also import other style files */
+.popover.bs-popover-right{
+        width: 150%;
+        max-width: 150%;
+}
+
+.popover-content {
+  overflow-y: auto;
+}
+
+#send,
+#send:hover {
+  font-size: 1.2em;
+}
+
+.invisible{
+    display:none;
+};
+
+:focus{
+  outline: none;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:focus,
+.btn-primary:not([disabled]):not(.disabled).active, 
+.btn-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #2079b4;
+  border-color: #2079b4;
+  box-shadow: none;
+}
+
+.btn-green {
+  background-color: #16a085;
+  color: #ffffff;
+  border-color: #16a085;
+}
+
+.btn-green:hover,
+.btn-green:active,
+.btn-green.active,
+.btn-green:active:focus,
+.btn-green:not([disabled]):not(.disabled).active, 
+.btn-green:not([disabled]):not(.disabled):active, 
+.show>.btn-green.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #117e68;
+  border-color: #117e68;
+  box-shadow: none;
+}
+
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary:active:focus,
+.btn-outline-primary:not([disabled]):not(.disabled).active, 
+.btn-outline-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #3498db;
+  border-color: #3498db;
+  box-shadow: none;
+}
+
+.btn-outline-secondary {
+  color: #16a085;
+  border-color: #16a085;
+  box-shadow: none;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active,
+.btn-outline-secondary.active,
+.btn-outline-secondary:active:focus,
+.btn-outline-secondary:not([disabled]):not(.disabled).active, 
+.btn-outline-secondary:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-secondary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #16a085;
+  border-color: #16a085;
+  box-shadow: none;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #3498db;
+}
+.custom-day.range, .custom-day:hover {
+  background-color: #3498db;
+  color: white;
+}
+.faded {
+  opacity: 0.5;
+}

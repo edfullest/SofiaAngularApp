@@ -1,0 +1,81 @@
+/*#117e68*/
+
+.modal-header {
+  background-color: #16a085;
+}
+.modal-title {
+  font-size: 1.5em;
+  color: white;
+}
+
+span.whiteCross {
+  color: white;
+  font-size: 1.5em;
+  font-weight: lighter;
+}
+
+span.whiteCross:hover {
+  color: white;
+}
+
+.form-group > label {
+  font-size: 1.1em;
+  font-weight: lighter;
+}
+
+.btn-outline-primary {
+  color: #16a085;
+  border-color: #16a085;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary:active:focus,
+.btn-outline-primary:not([disabled]):not(.disabled).active, 
+.btn-outline-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #16a085;
+  border-color: #16a085;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background-color: #16a085;
+  border-color: #16a085;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:focus,
+.btn-primary:not([disabled]):not(.disabled).active, 
+.btn-primary:not([disabled]):not(.disabled):active, 
+.show>.btn-primary.dropdown-toggle
+ {
+  color: #ffffff;
+  background-color: #117e68;
+  border-color: #117e68;
+  box-shadow: none;
+}
+
+.bg-green{
+    background-color: #16a085;
+}
+
+.invisible{
+    display:none;
+};
+
+.form-control{
+  border-color: #16a085;  
+}
+
+.form-control:focus {
+  border-color: #16a085;  
+  box-shadow: none; 
+  -webkit-box-shadow: none;
+}
+

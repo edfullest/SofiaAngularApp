@@ -5,7 +5,7 @@
 
 
 <div class = "row" *ngFor="let courseRow of coursesRows;">
-    <div id = "course{{course.id}}" class="col-lg-3" *ngFor="let course of courseRow;" >
+    <div id = "course{{course.id}}" class="col-md-3" *ngFor="let course of courseRow;" >
         <div class="card">
           <div id = "card-block{{course.id}}" class="card-block visible">
             <h4 class="card-title">{{course.name}}</h4>
@@ -13,9 +13,15 @@
             <p>Inicia: {{course.start_date}}</p> 
             <p>Se acaba el: {{course.end_date}}</p> 
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Ver</a></li>
-              <li class="list-group-item"><button (click)="editCourse(target,course.id)" class="btn btn-secondary btn-block">Editar</button></li>
-              <li class="list-group-item"><button (click)="deleteCourse(course.id)" class="btn btn-danger btn-block">Borrar</button></li>
+              <li class="list-group-item"><button (click)="goToCourseDetails(course.id)" class="btn btn-primary btn-block">Ver curso</button></li>
+              <li class="list-group-item"><create-assignment></create-assignment></li>
+              <li ngbDropdown class="list-group-item">
+                <button class="btn btn-outline-primary btn-block" id="dropdownBasic1" ngbDropdownToggle>Más</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="editCourse(target,course)" class="btn btn-secondary btn-block">Editar</button>
+                    <button (click)="deleteCourse(course.id)" class="btn btn-danger btn-block">Borrar</button>
+                  </div>
+              </li>
             </ul>
           </div>
           <div id = "form{{course.id}}" class = "form invisible">
@@ -27,8 +33,6 @@
                   <label for="datepickerRange">Duración del curso</label>
                 </div>
                 <div class="form-group mx-auto w-100 text-center">
-                  <!-- <ngb-datepicker id = "datepickerRange" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="datesTemplate">
-                  </ngb-datepicker> -->
                   <date-picker-with-range></date-picker-with-range>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -43,7 +47,7 @@
 </div>
 <div class="row">
     
-  <!-- <div class="col-sm-3">
+ <!--  <div class="col-sm-3">
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">Curso</h4>

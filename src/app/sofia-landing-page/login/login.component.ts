@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         if (this._tokenService.userSignedIn() == true){
             var currentUser : User = this.userService.getCurrentUser()
+            console.log(currentUser)
             if(currentUser.type == 'Student'){
                 this.router.navigateByUrl('/student/dashboard/courses');
             }else{

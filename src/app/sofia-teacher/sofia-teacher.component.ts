@@ -68,7 +68,7 @@ export class SofiaTeacherComponent implements OnInit{
   }
 
   open(content) {
-    this.modalRef = this.modalService.open(content)
+    this.modalRef = this.modalService.open(content);
     this.modalRef.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
@@ -121,7 +121,10 @@ export class SofiaTeacherComponent implements OnInit{
       method: "POST",
       url:    'http://localhost:3000/courses',
       body:   data
-    });
+    }).subscribe(
+      res => this.router.navigate(['']),
+      error => this.router.navigate([''])
+    );
     
   }
 

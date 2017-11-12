@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, EventEmitter, ViewChild } from '@angular/core';
 import {NgbModal, NgbModalRef ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { Angular2TokenService } from 'angular2-token';
@@ -26,9 +26,14 @@ export class DatePickerWithRangeService {
   private fromDate: NgbDateStruct;
   private toDate: NgbDateStruct;
 
+  // Whenever there is a change on these variables, these observers will emit the change to anyone subscribed
+  public fromDateObserver : EventEmitter<any> = new EventEmitter();
+  public toDateObserver : EventEmitter<any> = new EventEmitter();
+
 
   getFromDate() {
     return this.fromDate
+
   }
 
   getToDate() {
@@ -37,9 +42,11 @@ export class DatePickerWithRangeService {
 
   setFromDate(date : NgbDateStruct){
     this.fromDate = date
+    this.fromDateObserver.emit(this.fromDate)
   }
   setToDate(date : NgbDateStruct){
     this.toDate = date
+    this.toDateObserver.emit(this.toDate)
   }
 }
 @Component({
@@ -54,6 +61,8 @@ export class DatePickerWithRangeComponent implements OnInit{
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   modalRef: NgbModalRef;
+  @ViewChild('dp') dp: any;
+
   ngOnInit(){
 
   }
@@ -77,29 +86,22 @@ export class DatePickerWithRangeComponent implements OnInit{
   isTo = date => equals(date, this.toDate);
 
   constructor(private modalService: NgbModal, public calendar: NgbCalendar, private datePickerService : DatePickerWithRangeService) {
-    this.fromDate = calendar.getToday();
+    this.fromDate = this.datePickerService.getFromDate()
+    this.toDate = this.datePickerService.getToDate()
+    datePickerService.fromDateObserver.subscribe(
+       (fromDate : NgbDateStruct) => {
+          this.dp.navigateTo(fromDate)
+          this.fromDate = fromDate
+       }
+    )
+    datePickerService.toDateObserver.subscribe(
+       (toDate : NgbDateStruct) => {
+          this.toDate = toDate
+       }
+    )
     // this.datePickerService.setFromDate(this.fromDate)
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 100);
 
-  }
-
-  open(content) {
-    this.modalRef = this.modalService.open(content)
-    this.modalRef.result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });    
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
   }
 
 }

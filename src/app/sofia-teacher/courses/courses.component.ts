@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Angular2TokenService } from 'angular2-token';
 import { CommonModule } from '@angular/common';
 import * as $ from 'jquery';
-import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerWithRangeService } from '../../date-picker-with-range/date-picker-with-range.component';
+import { AssignmentsComponent } from './assignments/assignments.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -11,10 +13,17 @@ import { DatePickerWithRangeService } from '../../date-picker-with-range/date-pi
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
-  title : string = "Cursos"
+  title : string = "Cursos 📚"
   coursesRows : Array<Array<any>>;
-  constructor(private _tokenService: Angular2TokenService, private datePickerService : DatePickerWithRangeService) { 
-    console.log(this.datePickerService.getFromDate())
+  constructor(private _tokenService: Angular2TokenService, private datePickerService : DatePickerWithRangeService,
+              private router: Router) {
+      this._tokenService.init({
+          apiBase: 'http://localhost:3000'
+      }); 
+  }
+  goToCourseDetails(courseID){
+    console.log(courseID)
+    this.router.navigate(['teacher/dashboard/course/' + courseID]);
   }
 
   deleteCourse(courseID){
@@ -25,6 +34,8 @@ export class CoursesComponent implements OnInit {
         error => console.log(error)
 
     )
+
+    // We delete the course manually
     var courseRow, course, i, j;
     i = 0;
     for (i = 0; i < this.coursesRows.length; ++i){
@@ -40,13 +51,22 @@ export class CoursesComponent implements OnInit {
     
   }
 
-  editCourse(target, courseID){
+  editCourse(target, course){
     this.title = "Editar curso"
-    var selector = "#course" + courseID;
-    $('.col-lg-3:not('+ selector +')').hide();
-    $('#card-block' + courseID).hide()
+    var startDate = new Date(course.start_date);
+    var endDate = new Date(course.end_date);
+
+    var ngbDateStruct = { day: startDate.getUTCDate(), month: startDate.getUTCMonth() + 1, year: startDate.getUTCFullYear()};
+    var ngbEndDate = { day: endDate.getUTCDate(), month: endDate.getUTCMonth() + 1, year: endDate.getUTCFullYear()};
+
+    this.datePickerService.setFromDate(ngbDateStruct)
+    this.datePickerService.setToDate(ngbEndDate)
+
+    var selector = "#course" + course.id;
+    $('.col-md-3:not('+ selector +')').hide();
+    $('#card-block' + course.id).hide()
     $(selector).attr('class','col-lg-12')
-    $("#form" + courseID).attr('class','form visible')
+    $("#form" + course.id).attr('class','form visible')
     $('html, body').animate({
         scrollTop: ($(selector).offset().top)
     },500);
@@ -72,20 +92,19 @@ export class CoursesComponent implements OnInit {
         body:   data
       });
       this.return(course)
+
   }
 
   return(course){
     var selector = "#course" + course.id;
-    $('.col-lg-3').show();
+    $('.col-md-3').show();
     $('#card-block' + course.id).show()
-    $(selector).attr('class','col-lg-3')
+    $(selector).attr('class','col-md-3')
     $("#form" + course.id).attr('class','form invisible')
+    this.title = "Cursos 📚"
   }
 
   ngOnInit() {
-    this._tokenService.init({
-      apiBase: 'http://localhost:3000'
-    });
     this.getCourses()
   }
 

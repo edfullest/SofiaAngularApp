@@ -1,3 +1,135 @@
-<p>
-  assignments works!
-</p>
+<!-- <button (click)="editCourse(target,course)" class="btn btn-primary btn-block">Crear Juego</button>
+ -->
+<button class="btn btn-green btn-block" (click)="open(content)">Crear Juego</button>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Crear Juego</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" class = "whiteCross">&times;</span>
+        </button>
+    </div>
+    <div id = "firstWizard" class="modal-body visible">
+        <div class="form-group">
+            <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" style="width: 50%;" aria-valuenow="50"     aria-valuemin="0" aria-valuemax="100">¡Sólo un paso más!</div>
+            </div>
+        </div>
+
+        <div class = "form-group">
+          <div class = "jumbotron">
+              <h2>Crear juego</h2>
+              <p>En este apartado puedes darle un nombre cool al juego que estés haciendo! Además, puedes añadirle una duración, para que tus estudiantes sólo puedan hacer esa actividad en el rango de fechas que vayas a dar 👩🏾‍🏫👨🏻‍🏫</p>
+                    </div>
+        </div>
+        
+        <div class = "form">
+            <div class="col-md-15">
+                <div class="form-group">
+                  <label for="courseName">Nombre del juego</label>
+                  <input id = "courseName" type="text" class="form-control" [(ngModel)]="courseName" placeholder="Ej. 10 Preguntas de Inglés" [ngModelOptions]="{standalone: true}" required>
+                </div> 
+              </div>
+                <hr>
+              <div class="form-group">
+                  <label for="datepickerRange">Duración del curso</label>
+                  <ngb-datepicker id = "datepickerRange" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="datesTemplate">
+                  </ngb-datepicker>
+              </div>
+              
+        </div>
+    </div>
+    <div id = "lastWizard" class="modal-body invisible">
+        <div class="form-group">
+            <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" style="width: 100%;" aria-valuenow="100"     aria-valuemin="0" aria-valuemax="100">¡Ya casi!</div>
+            </div>
+        </div>
+         <div class = "form-group">
+          <div class = "jumbotron">
+              <h2>Preguntas y Respuestas</h2>
+              <p>Un juego es nada sin sus preguntas y respuestas! Haz preguntas divertidas con respuestas que sean tricky.</p>
+                    </div>
+        </div>
+        <div class = "form-group">
+          <button class="btn btn-primary btn-block" (click)="addQuestion()">Añadir Pregunta</button>
+          
+        </div>
+        <!-- <div #formRow *ngFor="let name of names">
+          <input>
+        </div> -->
+       
+            <!-- form row stuff -->
+       
+<!--           <input (keydown.enter)="addQuestion()" *ngFor="questionInput of questions" type="text" />
+ -->        
+          <form [formGroup]="questionsForm">
+            <div formArrayName="questions">
+              <div [formGroupName] = "i" *ngFor="let prop of questionsForm.controls.questions.controls; let i = index; let l = last"  >
+                <div class = "form-group">
+                  <h3>Pregunta {{i + 1}}</h3>
+                  <div class = "row">
+                    <div class = "col-md-9">
+                      <input type="text" placeholder = "Ej. ¿Quién descubrió América?" formControlName="question" class="form-control" (keyup.enter) = "addQuestion()">
+                    </div>
+                    <div class = "col-md-3">
+                      <button (click) = "selectQuestion(i)" type="button" class="btn btn-primary btn-block" placement = "right" [ngbPopover]="popContent" (click) = "selectQuestion(i)" popoverTitle="Respuestas de Pregunta {{i + 1}}">Respuestas <i class="fa fa-chevron-right"  aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+
+            </div>
+        </form>
+        <pre>form value: <br>{{questionsForm.value | json}}</pre>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="nextInWizard()">{{wizardStatus}}</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #popContent>
+  <div class = "jumbotron">
+      <p>Presiona <b>enter</b> para añadir más respuestas! Marca la respuesta correcta con la tecla <b>control</b></p>
+    </div>
+    <div class = "form-group">
+          <button class="btn btn-primary btn-block" (click)="addAnswer()">Añadir Respuesta</button>
+          
+        </div>
+    <form [formGroup]="questionsForm">
+      <div formArrayName="questions">
+        <div [formGroupName] = "i" *ngFor="let question of questionsForm.controls.questions.controls; let i = index;">
+          <div *ngIf = "i == selectedQuestionIndex">
+            <div formArrayName="answers">
+              <div [formGroupName]="j" class="form-group" *ngFor="let answer of question.controls.answers.controls; let j = index">
+                <div class = "row">
+                    <div class = "col-md-10">
+                      <input type="text" placeholder = "Ej. Cristobal Colon" formControlName="attr" class="form-control" (keyup.enter) = "addAnswer()">
+                    </div>
+                    <div class = "col-md-2">
+                      
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </form>
+  
+
+</ng-template>
+
+
+
+
+
+
+
+
+
+

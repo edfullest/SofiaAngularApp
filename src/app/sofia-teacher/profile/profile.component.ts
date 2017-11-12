@@ -20,15 +20,14 @@ export class ProfileComponent implements OnInit {
     }
 
   ngOnInit() {
-    // this.loadProfile()
-    var user : User = this.userService.getCurrentUser()
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.email = user.email
-  }
+      // this.loadProfile()
+      var user : User = this.userService.getCurrentUser()
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.email = user.email
+   }
 
-   loadProfile(){
-        
+   loadProfile(){  
         this._tokenService.get('people/profile').subscribe(
             res => {
               var data = res.json()

@@ -1,0 +1,51 @@
+<div *ngIf = "course">
+	<h2>{{course.name}}</h2>
+	<div class="row">
+  		<div class="col-sm-6">
+  			
+  		</div>
+  		<div class="col-sm-6">
+  			<div class = "row" *ngFor="let courseRow of coursesRows;">
+			    
+			        <div id = "assignment{{assignment.id}}" class="card" *ngFor="let assignment of assignments;">
+			          <div id = "card-block{{course.id}}" class="card-block visible">
+			            <h4 class="card-title">{{course.name}}</h4>
+			            
+			            <p>Inicia: {{course.start_date}}</p> 
+			            <p>Se acaba el: {{course.end_date}}</p> 
+			            <ul class="list-group list-group-flush">
+			              <li class="list-group-item"><button (click)="goToCourseDetails(course.id)" class="btn btn-primary btn-block">Ver curso</button></li>
+			              <li class="list-group-item"></li>
+			              <li ngbDropdown class="list-group-item">
+			                <button class="btn btn-outline-primary btn-block" id="dropdownBasic1" ngbDropdownToggle>Más</button>
+			                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+			                    <button (click)="editCourse(target,course)" class="btn btn-secondary btn-block">Editar</button>
+			                    <button (click)="deleteCourse(course.id)" class="btn btn-danger btn-block">Borrar</button>
+			                  </div>
+			              </li>
+			            </ul>
+			          </div>
+			          <!-- <div id = "form{{course.id}}" class = "form invisible">
+			                <div class="form-group col-xs-12 col-md-12 mx-auto w-50 p-3 text-center">
+			                  <label class="control-label" for="courseName">Nombre del curso</label>
+			                  <input id = "courseName" type="text" class="form-control" [(ngModel)]="course.name" placeholder="Ej. Inglés para niños" [ngModelOptions]="{standalone: true}" required>
+			                </div>
+			                <div class="col-xs-4 col-xs-4 mx-auto w-50 text-center">
+			                  <label for="datepickerRange">Duración del curso</label>
+			                </div>
+			                <div class="form-group mx-auto w-100 text-center">
+			                  <date-picker-with-range></date-picker-with-range>
+			                </div>
+			                <ul class="list-group list-group-flush">
+			                  <li class="list-group-item"><button (click) = "acceptChanges(course)" class="btn btn-primary btn-block">Aceptar</button></li>
+			                  <li class="list-group-item"><button (click)="return(course)" class="btn btn-secondary btn-block">Cancelar</button></li>
+			                </ul>
+			            </div> -->
+			          
+			        </div>
+			  
+			</div>
+  		</div>
+	</div>
+
+</div>
