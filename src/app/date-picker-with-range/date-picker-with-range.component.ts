@@ -61,11 +61,13 @@ export class DatePickerWithRangeComponent implements OnInit{
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   modalRef: NgbModalRef;
+  model: NgbDateStruct;
   @ViewChild('dp') dp: any;
 
   ngOnInit(){
 
   }
+
   onDateChange(date: NgbDateStruct) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
@@ -76,8 +78,7 @@ export class DatePickerWithRangeComponent implements OnInit{
       this.fromDate = date;
     }
     this.datePickerService.setFromDate(this.fromDate)
-    this.datePickerService.setToDate(this.toDate)
-    
+    this.datePickerService.setToDate(this.toDate)    
   }
 
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
@@ -88,6 +89,7 @@ export class DatePickerWithRangeComponent implements OnInit{
   constructor(private modalService: NgbModal, public calendar: NgbCalendar, private datePickerService : DatePickerWithRangeService) {
     this.fromDate = this.datePickerService.getFromDate()
     this.toDate = this.datePickerService.getToDate()
+
     datePickerService.fromDateObserver.subscribe(
        (fromDate : NgbDateStruct) => {
           this.dp.navigateTo(fromDate)

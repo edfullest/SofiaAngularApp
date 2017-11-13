@@ -18,9 +18,9 @@ export class CoursesComponent implements OnInit {
   unRegister(courseID){
 	    this._tokenService.delete('/students/courses/' + courseID).subscribe(
 	        res => {
+            console.log(res)
 	        },
 	        error => console.log(error)
-
 	    )
 	    var courseRow, course, i, j;
 	    i = 0;
@@ -34,7 +34,6 @@ export class CoursesComponent implements OnInit {
 	        this.coursesRows.splice(i, 1);
 	      }
 	    }
-    
   }
 
 
@@ -56,7 +55,7 @@ export class CoursesComponent implements OnInit {
   getCourses(){
     this._tokenService.request({
       method: "GET",
-      url:    'http://localhost:3000/student/courses'
+      url:    'http://localhost:3000/students/courses'
     })
     .subscribe(
         res =>  {

@@ -1,50 +1,59 @@
 <div *ngIf = "course">
 	<h2>{{course.name}}</h2>
 	<div class="row">
-  		<div class="col-sm-6">
-  			
-  		</div>
-  		<div class="col-sm-6">
-  			<div class = "row" *ngFor="let courseRow of coursesRows;">
-			    
-			        <div id = "assignment{{assignment.id}}" class="card" *ngFor="let assignment of assignments;">
-			          <div id = "card-block{{course.id}}" class="card-block visible">
-			            <h4 class="card-title">{{course.name}}</h4>
-			            
-			            <p>Inicia: {{course.start_date}}</p> 
-			            <p>Se acaba el: {{course.end_date}}</p> 
-			            <ul class="list-group list-group-flush">
-			              <li class="list-group-item"><button (click)="goToCourseDetails(course.id)" class="btn btn-primary btn-block">Ver curso</button></li>
-			              <li class="list-group-item"></li>
-			              <li ngbDropdown class="list-group-item">
-			                <button class="btn btn-outline-primary btn-block" id="dropdownBasic1" ngbDropdownToggle>Más</button>
-			                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-			                    <button (click)="editCourse(target,course)" class="btn btn-secondary btn-block">Editar</button>
-			                    <button (click)="deleteCourse(course.id)" class="btn btn-danger btn-block">Borrar</button>
-			                  </div>
-			              </li>
-			            </ul>
-			          </div>
-			          <!-- <div id = "form{{course.id}}" class = "form invisible">
-			                <div class="form-group col-xs-12 col-md-12 mx-auto w-50 p-3 text-center">
-			                  <label class="control-label" for="courseName">Nombre del curso</label>
-			                  <input id = "courseName" type="text" class="form-control" [(ngModel)]="course.name" placeholder="Ej. Inglés para niños" [ngModelOptions]="{standalone: true}" required>
-			                </div>
-			                <div class="col-xs-4 col-xs-4 mx-auto w-50 text-center">
-			                  <label for="datepickerRange">Duración del curso</label>
-			                </div>
-			                <div class="form-group mx-auto w-100 text-center">
-			                  <date-picker-with-range></date-picker-with-range>
-			                </div>
-			                <ul class="list-group list-group-flush">
-			                  <li class="list-group-item"><button (click) = "acceptChanges(course)" class="btn btn-primary btn-block">Aceptar</button></li>
-			                  <li class="list-group-item"><button (click)="return(course)" class="btn btn-secondary btn-block">Cancelar</button></li>
-			                </ul>
-			            </div> -->
-			          
-			        </div>
-			  
+  		<div class="col-md-6">
+  			<div class = "jumbotron">
+				<h3>Estudiantes</h3>
+				<p>Estos estudiantes se registraron. ¡Bien hecho!</p>
 			</div>
+  		</div>
+  		<div class="col-md-6">
+			<div class = "jumbotron">
+				<h3>Juegos</h3>
+				<p>Estos son todos los juegos que has hecho para la clase de {{course.name}}</p>
+			</div>
+		       <div id = "assignment{{assignment.id}}" class="card mb-3" *ngFor="let assignment of assignments;">
+		          <div id = "card-block{{assignment.id}}" class="card-block visible">
+		            <h4 class="card-title">{{assignment.name}}</h4>
+		            
+		            <p>Inicia: {{assignment.start_date}}</p> 
+		            <p>Se acaba el: {{assignment.end_date}}</p> 
+		            <ul class="list-group list-group-flush">
+		              <li class="list-group-item"><button (click)="goToCourseDetails(assignment)" class="btn btn-primary btn-block">Ver juego</button></li>
+		              <li class="list-group-item"><button (click)="editAssignment(target,assignment)" class="btn btn-secondary btn-block">Editar</button></li>
+		              <li class="list-group-item"><button (click)="deleteAssignment(assignment)" class="btn btn-danger btn-block">Borrar</button></li>
+		              <!-- <li ngbDropdown class="list-group-item">
+		                <button class="btn btn-outline-secondary btn-block" id="dropdownBasic1" ngbDropdownToggle>Más</button>
+		                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+		                    
+		                    
+		                  </div>
+		              </li> -->
+		            </ul>
+		          </div>
+		          <div id = "form{{assignment.id}}" class = "form invisible">
+	                <div class="form-group col-xs-12 col-md-12 mx-auto w-100 p-3 text-center">
+	                  <label class="control-label" for="courseName">Nombre del juego</label>
+	                  <input id = "assignmentName" type="text" class="form-control" [(ngModel)]="assignment.name" placeholder="Ej. 10 Preguntas de Inglés" [ngModelOptions]="{standalone: true}" required>
+	                </div>
+	               <!--  <div class="col-xs-4 col-xs-4 mx-auto w-50 text-center">
+	                  <label for="datepickerRange">Duración del curso</label>
+	                </div>
+	                <div class="form-group mx-auto w-100 text-center">
+	                  <date-picker-with-range></date-picker-with-range>
+	                </div> -->
+	                <div class="col-xs-4 col-xs-4 mx-auto w-50 text-center">
+                  		<label>Duración del juego</label>
+                	</div>
+	                <div class="form-group mx-auto w-100 text-center">
+                  		<date-picker-with-range></date-picker-with-range>
+                	</div>
+	                <ul class="list-group list-group-flush">
+	                  <li class="list-group-item"><button (click) = "acceptChanges(assignment)" class="btn btn-primary btn-block">Aceptar</button></li>
+	                  <li class="list-group-item"><button (click)="return(assignment)" class="btn btn-secondary btn-block">Cancelar</button></li>
+	                </ul>
+            	</div>
+		      </div>
   		</div>
 	</div>
 

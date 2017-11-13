@@ -22,13 +22,11 @@ export class CoursesComponent implements OnInit {
       }); 
   }
   goToCourseDetails(courseID){
-    console.log(courseID)
     this.router.navigate(['teacher/dashboard/course/' + courseID]);
   }
 
   deleteCourse(courseID){
-    console.log(courseID)
-    this._tokenService.delete('/courses/' + courseID).subscribe(
+    this._tokenService.delete('courses/' + courseID).subscribe(
         res => {
         },
         error => console.log(error)

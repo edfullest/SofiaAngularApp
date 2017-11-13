@@ -9,10 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AssignmentsComponent } from './courses/assignments/assignments.component';
-import { DatePickerWithRangeComponent } from '../date-picker-with-range/date-picker-with-range.component';
+// import { DatePickerWithRangeComponent } from '../date-picker-with-range/date-picker-with-range.component';
 import { CoursesModule } from '../shared-components/courses.module';
 import { QuestionsAnswersModule } from '../shared-components/questions-answers.module';
 import { InputModule } from '../input.module';
+import { DatePickerWithRangeModule } from '../date-picker-with-range/date-picker-with-range.module';
+
 
 @NgModule({
   imports: [
@@ -23,9 +25,10 @@ import { InputModule } from '../input.module';
     SofiaTeacherRoutingModule,
     CoursesModule,
     QuestionsAnswersModule,
-    InputModule
+    InputModule,
+    DatePickerWithRangeModule
   ],
-  declarations: [DatePickerWithRangeComponent,SofiaTeacherComponent, ProfileComponent, CoursesComponent, AssignmentsComponent]
+  declarations: [SofiaTeacherComponent, ProfileComponent, CoursesComponent, AssignmentsComponent]
 })
 export class SofiaTeacherModule { 
 

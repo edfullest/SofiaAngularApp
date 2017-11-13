@@ -3,6 +3,10 @@
         max-width: 150%;
 }
 
+.dropdown-menu {
+  width: 90%; 
+}
+
 .popover-content {
   overflow-y: auto;
 }
@@ -114,4 +118,31 @@
 }
 .faded {
   opacity: 0.5;
+}
+.query-bar{
+ 
+    transition: all 0.5s ease;
+}
+.query-bar:focus{
+  width: 500px;
+}
+
+.btn-outline-white {
+  color: white;
+  background-color: transparent;
+  border-color: white;
+}
+
+.btn-outline-white:hover,
+.btn-outline-white:active,
+.btn-outline-white.active,
+.btn-outline-white:active:focus,
+.btn-outline-white:not([disabled]):not(.disabled).active, 
+.btn-outline-white:not([disabled]):not(.disabled):active, 
+.show>.btn-outline-white.dropdown-toggle
+ {
+  color: black;
+  background-color: white;
+  border-color: white;
+  box-shadow: none;
 }

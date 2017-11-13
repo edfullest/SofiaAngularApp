@@ -1,0 +1,17 @@
+:host: /deep/ .custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+:host: /deep/ .custom-day.focused {
+  background-color: #3498db;
+}
+:host: /deep/ .custom-day.range, :host: /deep/ .custom-day:hover {
+  background-color: #3498db;
+  color: white;
+}
+:host: /deep/ .faded {
+  opacity: 0.5;
+}

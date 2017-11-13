@@ -1,4 +1,17 @@
-.dropdown-menu {
-  width: 90%; 
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
 }
-
+.custom-day.focused {
+  background-color: #3498db;
+}
+.custom-day.range, .custom-day:hover {
+  background-color: #3498db;
+  color: white;
+}
+.faded {
+  opacity: 0.5;
+}

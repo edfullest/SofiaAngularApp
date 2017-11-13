@@ -14,7 +14,7 @@
             <p>Se acaba el: {{course.end_date}}</p> 
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><button (click)="goToCourseDetails(course.id)" class="btn btn-primary btn-block">Ver curso</button></li>
-              <li class="list-group-item"><create-assignment></create-assignment></li>
+              <li class="list-group-item"><create-assignment [courseID] = "course.id" ></create-assignment></li>
               <li ngbDropdown class="list-group-item">
                 <button class="btn btn-outline-primary btn-block" id="dropdownBasic1" ngbDropdownToggle>Más</button>
                   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">

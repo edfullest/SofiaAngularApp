@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" [routerLink]="['']" >Dashboard de {{name}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -11,11 +11,11 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" class="form-control" [(ngModel)]="query" [ngModelOptions]="{standalone: true}" required placeholder="Buscar curso">
+      <input type="text" class="form-control query-bar" [(ngModel)]="query" (ngModelChange) = "search()"  [ngModelOptions]="{standalone: true}" required placeholder="Buscar curso">
 
-      <button class="btn btn-outline-success mr-sm-2" (click)="search()" type="submit">Buscar</button>
+      <button class="btn btn-outline-success ml-sm-2 mr-sm-2" (click)="search()" type="submit">Buscar</button>
       <button class="btn btn-outline-secondary mr-sm-2" (click)="loadProfile()">Mi Perfil</button>
-      <button id = "Logout" (click) = "logout()" type="button" class="btn btn-outline-dark">
+      <button id = "Logout" (click) = "logout()" type="button" class="btn btn-outline-white">
               Salir
        </button>
     </form>
@@ -23,6 +23,16 @@
 </nav>
 
 <div class="container">
+<!--     <div class = "form-group">
+    </div>
+    <div class = "form-group">
+      <p>
+      <ngb-alert type='success' [dismissible]="false">
+        <strong>Te has registrado exitosamente al curso!</strong> B too good.
+    </ngb-alert>
+  </p>
+    </div> -->
+  
 <router-outlet></router-outlet>
 <hr>
 

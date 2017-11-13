@@ -64,8 +64,12 @@ export class SofiaStudentComponent implements OnInit {
   }
 
   search(){
+    if (this.query){
       this.router.navigate(['student/dashboard/results/' + this.query])
-    
+    }
+    else{
+      this.router.navigate(['student/dashboard/courses/'])
+    }
   }
 
   checkLogin(){

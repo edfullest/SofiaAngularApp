@@ -1,7 +1,13 @@
-<ngb-datepicker id = "datepickerRange" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="datesTemplate">
+<!-- <ngb-datepicker id = "datepickerRange" #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="datesTemplate">
+</ngb-datepicker> -->
+
+<!-- <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+ -->
+
+ <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
 </ngb-datepicker>
 
-<ng-template #datesTemplate let-date="date" let-focused="focused">
+<ng-template #t let-date="date" let-focused="focused">
   <span class="custom-day"
         [class.focused]="focused"
         [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
@@ -11,3 +17,6 @@
     {{ date.day }}
   </span>
 </ng-template>
+
+<!-- <pre>From: {{ fromDate | json }} </pre>
+<pre>To: {{ toDate | json }} </pre> -->

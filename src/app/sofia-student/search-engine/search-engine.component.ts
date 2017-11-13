@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 
 @Component({
@@ -11,7 +11,9 @@ export class SearchEngineComponent implements OnInit {
 	coursesRows : Array<Array<any>>;
 	query : string;
   title : string = "Resultados para ";
-  constructor(private _tokenService: Angular2TokenService, private route: ActivatedRoute) { }
+  constructor(private _tokenService: Angular2TokenService, 
+              private route: ActivatedRoute,
+              private router : Router) { }
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
@@ -47,16 +49,15 @@ export class SearchEngineComponent implements OnInit {
     )
   }
 
-    register(id){
-    
-    var data = {
-      "courseID" : id 
-    }
-    this._tokenService.request({
-      method: "POST",
-      url:    'http://localhost:3000/courses/register',
-      body:   data
-    });
+    register(courseID){
+      this._tokenService.post('/students/courses/' + courseID, {}).subscribe(
+          res => {
+            console.log(res)
+            this.router.navigate(['student/dashboard/courses']);
+
+          },
+          error => console.log(error)
+      )
     
   }
 }

@@ -79,3 +79,6 @@ span.whiteCross:hover {
   -webkit-box-shadow: none;
 }
 
+input[type=checkbox] {
+  transform: scale(2.0);
+}

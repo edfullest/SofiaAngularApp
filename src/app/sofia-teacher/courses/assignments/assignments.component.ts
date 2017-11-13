@@ -1,22 +1,11 @@
-import { Component, OnInit,OnChanges, ViewChildren, ElementRef, QueryList, AfterViewInit, Directive, Renderer, Input } from '@angular/core';
-import {NgbModal, NgbModalRef ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+import { Component ,OnInit,OnChanges, ViewChildren, ElementRef, QueryList, AfterViewInit, Directive, Renderer, Input } from '@angular/core';
+import {NgbModal, NgbModalRef ,ModalDismissReasons, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-
-
-// @Directive({
-//   selector : 'question-input'
-// })
-// class QuestionInput {
-//   constructor(public renderer: Renderer, public elementRef: ElementRef) {}
-  
-//   // It won't work at construction time
-//   ngOnInit() {
-//     this.renderer.invokeElementMethod(
-//       this.elementRef.nativeElement, 'focus', []);
-//   }
-// }
+import { Angular2TokenService } from 'angular2-token';
+import { DatePickerWithRangeService } from '../../../date-picker-with-range/date-picker-with-range.component';
 
 
 @Component({
@@ -33,6 +22,10 @@ export class AssignmentsComponent implements OnInit,OnChanges {
   answersForm: FormGroup;
   wizardStatus : string = "Siguiente";
   selectedQuestionIndex : number;
+  name : string;
+
+  @Input() courseID;
+
 
   @ViewChildren('formQuestion') rows: QueryList<ElementRef>;
 
@@ -42,46 +35,53 @@ export class AssignmentsComponent implements OnInit,OnChanges {
         
       ])
     });
-
-
-    // this.answersForm = this.fb.group({
-    //   answers: this.fb.array([])
-    // });
-
-    // (<FormArray>this.answersForm.get('answers')).push(new FormControl());
   }
 
   ngOnChanges(){
   }
 
-  // ngAfterViewInit() {
-  //   this.rows.changes.subscribe(children => {
-  //     console.log(this.rows)
-  //     var index = (<FormArray>this.questionsForm.get('questions')).length - 1
-
-  //     console.log(index)
-  //     this.focusLast(index)
-  //   });
-  // }
-
-  constructor(private modalService: NgbModal, private fb: FormBuilder) {
+  constructor(private modalService: NgbModal,
+   private fb: FormBuilder, 
+   private datePickerService : DatePickerWithRangeService,
+   private _tokenService: Angular2TokenService) {
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 100);
+    this._tokenService.init({
+          apiBase: 'http://localhost:3000'
+      }); 
 
   }
   nextInWizard(){
+    console.log(this.courseID)
     $('#firstWizard').attr('class','modal-body invisible')
     $('#lastWizard').attr('class','modal-body visible')
     if (this.wizardStatus == "Siguiente"){
       this.wizardStatus = "Mandar"
     }
     else{
-      var questions : FormArray = <FormArray>this.questionsForm.get('questions')
-      var answers : FormArray = <FormArray>this.answersForm.get('answers')
-      console.log(questions.controls)
-      console.log(answers.controls)
-      console.log((questions.controls[0]).value)
-      // console.log(this.questionsForm.get('questions'))
-      // console.log(this.answersForm.get('answers'))
+      var fromDate : NgbDateStruct = this.datePickerService.getFromDate()
+      var toDate : NgbDateStruct = this.datePickerService.getToDate()
+      var startDate = fromDate.year + "-" + fromDate.month + "-" + fromDate.day
+      var endDate = toDate.year + "-" + toDate.month + "-" + toDate.day
+
+      let formObj = this.questionsForm.getRawValue();
+      var data = {
+        "course_id" : this.courseID,
+        "questions" : JSON.stringify(formObj),
+        start_date: startDate,
+        end_date: endDate,
+        name: this.name
+      }
+
+
+      
+      this._tokenService.request({
+        method: "POST",
+        url:    'http://localhost:3000/assignments',
+        body: JSON.stringify(data)
+      });
+
+      this.modalRef.close()
+
     }
   }  
 
@@ -96,28 +96,33 @@ export class AssignmentsComponent implements OnInit,OnChanges {
     });    
   }
 
-  // selectQuestion(i){
-  //   this.questionsForm.get('questions')
-  // }
-
   addQuestion(){
     (<FormArray>this.questionsForm.get('questions')).push(this.fb.group({
+          question: [null, Validators.required],
           answers : this.fb.array([
                 this.fb.group({
-                  description: [Math.random(), Validators.required]
+                  description: ['', Validators.required],
+                  is_correct: [false,Validators.required]
               })
-          ]),
-          correctAnswer : [null, Validators.required],
-          question: [null, Validators.required]
+          ])
+          
         }));
-    // var index = (<FormArray>this.questionsForm.get('questions')).length - 1
-
   }
 
   selectRightAnswer(i){
     console.log(i)
     this.selectedQuestionIndex = i
 
+  }
+
+  markCorrect(j){
+    var checked : boolean = $("#checkbox" + j.toString()).prop('checked')
+    $("#checkbox" + j.toString()).prop('checked', !checked);
+    var questionsArray : FormArray = <FormArray>this.questionsForm.get('questions')
+    var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[this.selectedQuestionIndex]
+    var answersArray = <FormArray> selectedQuestion.get('answers')
+    var controlsAnswer = (<FormArray>answersArray.controls[j])
+    controlsAnswer.controls["is_correct"].setValue(!checked)
   }
 
   selectQuestion(i){
@@ -130,7 +135,8 @@ export class AssignmentsComponent implements OnInit,OnChanges {
     console.log(selectedQuestion)
     var answersArray = <FormArray> selectedQuestion.get('answers')
      answersArray.push(this.fb.group({
-                  description: [Math.random(), Validators.required]
+                  description: ['', Validators.required],
+                  is_correct: [false,Validators.required]
               }))
     console.log()
 

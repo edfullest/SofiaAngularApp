@@ -2,8 +2,6 @@
   {{title}} {{query}}
 </h2>
 
-
-
 <div class = "row" *ngFor="let courseRow of coursesRows;">
     <div id = "course{{course.id}}" class="col-lg-3" *ngFor="let course of courseRow;" >
         <div class="card">
@@ -14,7 +12,7 @@
             <p>Se acaba el: {{course.end_date}}</p> 
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Ver</a></li>
-              <li class="list-group-item"><button (click)="register(course.id)" class="btn btn-danger btn-block">Salir del curso</button></li>
+              <li class="list-group-item"><button (click)="register(course.id)" class="btn btn-green btn-block">Registrarse</button></li>
             </ul>
           </div>
         </div>
